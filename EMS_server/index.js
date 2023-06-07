@@ -31,7 +31,7 @@ server.get('/allemployees',(req,res)=>{
         
     )
 })
-//api call to add lemployee details
+//api call to add employee details
 
 server.post('/addemployees',(req,res)=>{
     logic.addEmployees(req.body.id,req.body.empname,req.body.age,req.body.designation,req.body.salary).then(
@@ -50,6 +50,7 @@ server.post('/editemployees',(req,res)=>{
         
     )
 })
+
 server.delete('/deleteemployees/:id',(req,res)=>{
     logic.deleteEmployees(req.params.id).then(
         (result)=>{
