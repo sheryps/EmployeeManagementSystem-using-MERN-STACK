@@ -1,23 +1,34 @@
-import Home from './components/Home';
-import Add from './components/Add';
-import Edit from './components/Edit'
-import './App.css';
-import './bootstrap.min.css'
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import ProtectedRoute from "./components/ProtectedRpute";
+import MainLayout from "./layout/MainLayout";
+import DashboardPage from "./pages/DashboardPage";
+import EmployeesPage from "./pages/EmployeesPage";
+import UsersPage from "./pages/UsersPage";
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* for path setting */}
-        <Router>
-          <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/Add' element={<Add/>}/>
-            <Route path='/Edit/:id' element={<Edit/>}/>
-          </Routes>
-        </Router>       
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        {/* Public */}
+        <Route path="/" element={<Login />} />
+
+        {/* Protected Layout */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/employees" element={<EmployeesPage />} />
+          <Route path="/users" element={<ProtectedRoute allowedRoles={["ADMIN"]}>
+            <UsersPage />
+          </ProtectedRoute>} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
