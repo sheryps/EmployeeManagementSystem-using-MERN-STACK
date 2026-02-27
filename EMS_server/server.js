@@ -9,7 +9,8 @@ const app = express();
 connectDB();
 
 app.use(cors({
-    origin:"http://localhost:3000"
+    origin:["http://localhost:3000",   
+"https://employee-management-system-using-mern-stack-m3suunuit.vercel.app"    ]
 }));
 app.use(express.json());
 
