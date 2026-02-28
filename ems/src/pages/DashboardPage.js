@@ -1,4 +1,4 @@
-import EmployeeList from "../components/Employee";
+
 import StatsCards from "../components/StatsCards";
 import DepartmentChart from "../components/departmentChart"
 

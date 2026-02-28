@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import api from "../api/axios";
 
 function EmployeeList() {
@@ -25,22 +25,22 @@ const [editingId, setEditingId] = useState(null);
 
   const role = localStorage.getItem("role");
 
-  const fetchEmployees = async () => {
-    try {
-      setLoading(true);
+const fetchEmployees = useCallback(async () => {
+  try {
+    setLoading(true);
 
-      const res = await api.get(
-        `/employees?page=${page}&limit=${limit}&search=${search}&department=${department}`
-      );
+    const res = await api.get(
+      `/employees?page=${page}&limit=${limit}&search=${search}&department=${department}`
+    );
 
-      setEmployees(res.data.employees);
-      setTotalPages(res.data.pages);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    setEmployees(res.data.employees);
+    setTotalPages(res.data.pages);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+}, [page, limit, search, department]);
 //new employee
   const handleInputChange = (e) => {
   setNewEmployee({
@@ -91,7 +91,7 @@ const handleSubmitEmployee = async (e) => {
 
   useEffect(() => {
     fetchEmployees();
-  }, [page, search, department]);
+  }, [fetchEmployees]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this employee?"))
