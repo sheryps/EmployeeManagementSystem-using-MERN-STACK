@@ -22,7 +22,7 @@ function Login() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5001/api/auth/login",
+        "https://ems-server-gef2.onrender.com/api/auth/login",
         formData
       );
 
